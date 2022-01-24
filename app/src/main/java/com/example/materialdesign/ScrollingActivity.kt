@@ -44,41 +44,32 @@ class ScrollingActivity : AppCompatActivity() {
             Snackbar.make(it, R.string.app_name, Snackbar.LENGTH_LONG) //
                 .setAnchorView(binding.fab)
                 .setAction(R.string.escribe_puto, {
-                    Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show() // muestra una tostada
+                    Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT)
+                        .show() // muestra una tostada
                 })
                 .show()
         }
+        /**
+         * 3. Cargador de imagenes
+         */
+        binding.content.tbNombre2?.onFocusChangeListener =
+            View.OnFocusChangeListener { view, focused ->
 
-
-
-        binding.content.tbNombre2?.onFocusChangeListener = View.OnFocusChangeListener {view, focused ->
-
-            var srcImagen: String = binding.content.tbNombre.toString();
-            /**
-             * 3. Cargador de imagenes
-             */
-
-            if (!focused){
-                Snackbar.make(binding.root,"char secuencia", Snackbar.LENGTH_SHORT)
-                    .setAnchorView(binding.fab)
-                    .show()
-               Glide.with(this)
-                   .load(srcImagen)
-                   .diskCacheStrategy(DiskCacheStrategy.ALL) // guarda el tamanio de la foto
-                   .centerCrop()
-                   .into(binding.content.imgCard!!)
-            }else{
-
-                Snackbar.make(binding.root,"godeeeer", Snackbar.LENGTH_SHORT)
-
+                var srcImagen: String = binding.content.tbNombre2!!.text.toString()
+                if (focused) {
+                    loadImage(srcImagen)
+                }
+                binding.content.tbNombre?.error = "Errorsito"
             }
-        }
+    }
 
+    private fun loadImage(url: String = "una url cualquiera") {
 
-
-
-
-
+        Glide.with(this)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL) // guarda el tamanio de la foto
+            .centerCrop()
+            .into(binding.content.imgCard!!)
     }
 
 
